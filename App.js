@@ -19,7 +19,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // --- SCREENS ---
-// (Заглушки, если файлы не подключены, но используй свои импорты)
 import CalibrationScreen from './src/screens/CalibrationScreen';
 import CrimeMapScreen from './src/screens/CrimeMapScreen';
 import MJSafeScreen from './src/screens/MJSafeScreen';
@@ -32,15 +31,14 @@ const { width } = Dimensions.get('window');
 
 // --- COLORS & CONSTANTS ---
 const THEME = {
-  active: '#ff3333',     // Неоновый красный
-  inactive: '#6b7280',   // Серый металлик
-  bg: 'rgba(4, 19, 47, 0.96)', // Глубокий темный (почти черный)
-  glow: '#681212',       // Темно-красное свечение
+  active: '#ff3333',     
+  inactive: '#6b7280',   
+  bg: 'rgba(4, 19, 47, 0.96)', 
+  glow: '#681212',       
   glassBorder: 'rgba(255, 255, 255, 0.08)',
 };
 
-// Ширина таба зависит от количества элементов (у нас их 6)
-// Отступы слева и справа по 20px, итого ширина контейнера = width - 40
+
 const MARGIN_H = 20;
 const TAB_BAR_WIDTH = width - (MARGIN_H * 2);
 const TAB_WIDTH = TAB_BAR_WIDTH / 6; 
@@ -48,11 +46,9 @@ const TAB_WIDTH = TAB_BAR_WIDTH / 6;
 // --- CUSTOM TAB BAR COMPONENT ---
 const CustomTabBar = ({ state, descriptors, navigation }) => {
   const insets = useSafeAreaInsets();
-  // Анимация скользящего фона
   const translateX = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Двигаем "прожектор" к активному табу
     Animated.spring(translateX, {
       toValue: state.index * TAB_WIDTH,
       useNativeDriver: true,
@@ -95,7 +91,6 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             });
 
             if (!isFocused && !event.defaultPrevented) {
-              // Легкая вибрация при переключении (Haptic Feedback)
               Vibration.vibrate(10); 
               navigation.navigate(route.name);
             }
@@ -118,7 +113,6 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
 // --- INDIVIDUAL TAB BUTTON ---
 const TabButton = ({ onPress, isFocused, label, iconName }) => {
-  // Анимация иконки (Scale + TranslateY)
   const animValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -131,12 +125,12 @@ const TabButton = ({ onPress, isFocused, label, iconName }) => {
 
   const translateY = animValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -4] // Иконка чуть подпрыгивает вверх
+    outputRange: [0, -4] 
   });
 
   const scale = animValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [1, 1.1] // Иконка увеличивается
+    outputRange: [1, 1.1] 
   });
 
   return (
@@ -168,7 +162,7 @@ export default function App() {
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ImageBackground
-          source={require('./assets/web_bg.png')} // Убедись, что фон существует
+          source={require('./assets/web_bg.png')}
           style={{ flex: 1, backgroundColor: '#050b14' }}
           imageStyle={{ opacity: 0.3 }}
         >
@@ -184,9 +178,6 @@ export default function App() {
               tabBar={props => <CustomTabBar {...props} />}
               screenOptions={{
                 headerShown: false,
-                // Чтобы контент не перекрывался меню, в самих экранах нужен paddingBottom
-                // Но Tab.Navigator сам добавляет безопасные зоны, если мы не используем position absolute
-                // Так как у нас position absolute (в кастоме), экранам нужен отступ снизу ~100px
               }}
             >
               <Tab.Screen
@@ -252,9 +243,8 @@ const styles = StyleSheet.create({
     left: MARGIN_H,
     right: MARGIN_H,
     height: 75,
-    borderRadius: 35, // Сильное скругление (Capsule shape)
+    borderRadius: 35, 
     justifyContent: 'center',
-    // Тень для всего бара
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.5,
@@ -279,7 +269,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 
-  // Одна кнопка
+  // Кнопка
   tabButton: {
     flex: 1,
     alignItems: 'center',
@@ -304,15 +294,14 @@ const styles = StyleSheet.create({
     left: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: -1, // Под иконками
+    zIndex: -1, 
   },
   
   activeGlow: {
     width: 45,
     height: 45,
     borderRadius: 25,
-    backgroundColor: THEME.glow, // Темно-красный фон
-    // Красное свечение вокруг
+    backgroundColor: THEME.glow, 
     shadowColor: THEME.active,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.6,
