@@ -5,10 +5,10 @@
     "version": "1.0.0",
     "sdkVersion": "54.0.0",
     "ios": {
-      "jsEngine": "jsc"  // ← JSC для iOS (решает '_toString' и polyfill-баги в Hermes)
+      "jsEngine": "jsc"  
     },
     "android": {
-      "jsEngine": "jsc"  // ← JSC для Android (на всякий)
+      "jsEngine": "jsc"  
     }
   }
 }
