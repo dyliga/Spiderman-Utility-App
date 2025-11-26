@@ -1,4 +1,4 @@
-# Spiderman Utility App — Tactical Suit OS (MJ Edition)
+# Spiderman Utility App — Tactical Suit OS 
 
 > A full-featured Spider-Man tactical app built with React Native + Expo.  
 > Inspired by Tony Stark’s suit interfaces, Marvel’s Spider-Man games, and cyberpunk aesthetics.
